@@ -6,6 +6,10 @@ all other #include lines. */
 #ifndef BLARGG_SOURCE_H
 #define BLARGG_SOURCE_H
 
+#if defined (EMSCRIPTEN)
+#include <emscripten/emscripten.h>
+#endif
+
 // If debugging is enabled, abort program if expr is false. Meant for checking
 // internal state and consistency. A failed assertion indicates a bug in the module.
 // void assert( bool expr );
@@ -93,6 +97,8 @@ typedef unsigned char byte;
         #define BLARGG_EXPORT __declspec(dllexport)
     #elif defined (LIBGME_VISIBILITY)
         #define BLARGG_EXPORT __attribute__((visibility ("default")))
+    #elif defined (EMSCRIPTEN)
+        #define BLARGG_EXPORT EMSCRIPTEN_KEEPALIVE
     #else
         #define BLARGG_EXPORT
     #endif
