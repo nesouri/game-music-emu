@@ -32,6 +32,10 @@ jobs:
                     -DCMAKE_INTERPROCEDURAL_OPTIMIZATION:BOOL=ON \
                     -DCMAKE_POLICY_DEFAULT_CMP0069:STRING=NEW    \
                     ..
+      - name: Build
+        run: |
+          cd build
+          make
           emcc \
             -Oz \
             -flto \
@@ -44,7 +48,3 @@ jobs:
             --extern-post-js ../js/gme-post.js \
             -o gme.js \
             gme/libgme.a
-      - name: Build
-        run: |
-          cd build
-          make
