@@ -52,10 +52,15 @@ jobs:
             gme/libgme.a
           ls -l gme.js
 
+      - name: Collect Artifacts
+        run: |
+          mkdir gme-js
+          cp build/gme.js gme-js
+          cp js/gme-worklet-node.js gme-js
+          cp js/gme-worklet-processor.js gme-js
+          cp license.txt gme-js/LICENSE
+
       - uses: actions/upload-artifact@v2
         with:
           name: gme
-          path: |
-            */gme.js
-            */gme-worklet-node.js
-            */gme-worklet-processor.js
+          path: gme-js
