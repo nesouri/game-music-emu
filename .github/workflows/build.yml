@@ -26,7 +26,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          emcmake cmake                                          \
+          emcmake cmake -E env CXXFLAGS="-fno-rtti -fno-exceptions" \
                     -DCMAKE_BUILD_TYPE:STRING=Release            \
                     -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON             \
                     -DCMAKE_INTERPROCEDURAL_OPTIMIZATION:BOOL=ON \
@@ -39,8 +39,10 @@ jobs:
           emcc \
             -Oz \
             -flto \
+            -fno-rtti \
             -fsanitize=undefined \
             -s SINGLE_FILE=1 \
+            -s FILESYSTEM=0 \
             -s WASM_ASYNC_COMPILATION=0 \
             -s EXPORTED_RUNTIME_METHODS='["ccall", "getValue"]' \
             -s EXPORTED_FUNCTIONS='["_malloc", "_read", "_gme_open_data", "_gme_start_track", "_gme_track_ended", "_gme_track_count", "_gme_enable_accuracy", "_gme_play"]' \
@@ -49,3 +51,11 @@ jobs:
             -o gme.js \
             gme/libgme.a
           ls -l gme.js
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: gme
+          path: |
+            */gme.js
+            */gme-worklet-node.js
+            */gme-worklet-processor.js
