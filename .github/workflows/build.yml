@@ -26,7 +26,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          emcmake cmake -E env CXXFLAGS="-fno-rtti -fno-exceptions" \
+          CXXFLAGS="-fno-rtti -fno-exceptions" emcmake cmake     \
                     -DCMAKE_BUILD_TYPE:STRING=Release            \
                     -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON             \
                     -DCMAKE_INTERPROCEDURAL_OPTIMIZATION:BOOL=ON \
