@@ -23,6 +23,16 @@ jobs:
       - name: Verify
         run: emcc -v
       - name: Configure
-        run: mkdir build && cd build && emcmake cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=YES -DCMAKE_POLICY_DEFAULT_CMP0069=NEW ..
+        run: |
+          mkdir build
+          cd build
+          emcmake cmake                                          \
+                    -DCMAKE_BUILD_TYPE:STRING=Release            \
+                    -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON             \
+                    -DCMAKE_INTERPROCEDURAL_OPTIMIZATION:BOOL=ON \
+                    -DCMAKE_POLICY_DEFAULT_CMP0069:STRING=NEW    \
+                    ..
       - name: Build
-        run: cd build && make
+        run: |
+          cd build
+          make
