@@ -58,9 +58,10 @@ jobs:
           cp build/gme.js gme-js
           cp js/gme-worklet-node.js gme-js
           cp js/gme-worklet-processor.js gme-js
+          cp js/README.md gme-js
           cp license.txt gme-js/LICENSE
 
       - uses: actions/upload-artifact@v2
         with:
           name: gme
-          path: gme-js
+          path: gme-js/
