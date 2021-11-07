@@ -22,3 +22,7 @@ jobs:
           actions-cache-folder: ${{env.EM_CACHE_FOLDER}}
       - name: Verify
         run: emcc -v
+      - name: Configure
+        run: mkdir build && cd build && emcmake cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=YES -DCMAKE_POLICY_DEFAULT_CMP0069=NEW ..
+      - name: Build
+        run: cd build && make
