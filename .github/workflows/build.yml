@@ -42,9 +42,10 @@ jobs:
             -fsanitize=undefined \
             -s SINGLE_FILE=1 \
             -s WASM_ASYNC_COMPILATION=0 \
-            -s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "getValue"]' \
+            -s EXPORTED_RUNTIME_METHODS='["ccall", "getValue"]' \
             -s EXPORTED_FUNCTIONS='["_malloc", "_read", "_gme_open_data", "_gme_start_track", "_gme_track_ended", "_gme_track_count", "_gme_enable_accuracy", "_gme_play"]' \
             --extern-pre-js ../js/gme-pre.js \
             --extern-post-js ../js/gme-post.js \
             -o gme.js \
             gme/libgme.a
+          ls -l gme.js
