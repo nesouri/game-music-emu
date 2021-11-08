@@ -5,6 +5,7 @@ export class GmeWorkletNode extends AudioWorkletNode {
             numberOfInputs: 0,
             numberOfOutputs: 2
         });
+        this.port.onmessage = this.handleMessage.bind(this);
     }
 
     load(payload) {
@@ -14,7 +15,15 @@ export class GmeWorkletNode extends AudioWorkletNode {
     subtune(index) {
         this.port.postMessage({ cmd: 'subtune', subtune: index});
     }
-    enable_accuracy(enable) {
+    enableAccuracy(enable) {
         this.port.postMessage({ cmd: 'enable_accuracy', enable: enable ? 1 : 0 });
+    }
+    handleMessage(e) {
+        if (e.data.cmd == "metadata") {
+            this.onMetadataChanged(e.data.info);
+        }
+    }
+    onMetadataChanged(info) {
+        /* signal */
     }
 }

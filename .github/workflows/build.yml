@@ -45,7 +45,7 @@ jobs:
             -s FILESYSTEM=0 \
             -s WASM_ASYNC_COMPILATION=0 \
             -s EXPORTED_RUNTIME_METHODS='["ccall", "getValue"]' \
-            -s EXPORTED_FUNCTIONS='["_malloc", "_read", "_gme_open_data", "_gme_start_track", "_gme_track_ended", "_gme_track_count", "_gme_enable_accuracy", "_gme_play"]' \
+            -s EXPORTED_FUNCTIONS='["_malloc", "_read", "_gme_open_data", "_gme_start_track", "_gme_track_ended", "_gme_track_count", "_gme_enable_accuracy", "_gme_play", "_gme_track_info", "_gme_free_info"]' \
             --extern-pre-js ../js/gme-pre.js \
             --extern-post-js ../js/gme-post.js \
             -o gme.js \
@@ -55,10 +55,10 @@ jobs:
       - name: Collect Artifacts
         run: |
           mkdir gme-js
-          cp build/gme.js gme-js
-          cp js/gme-worklet-node.js gme-js
-          cp js/gme-worklet-processor.js gme-js
-          cp js/README.md gme-js
+          cp build/gme.js gme-js/
+          cp js/gme-worklet-node.js gme-js/
+          cp js/gme-worklet-processor.js gme-js/
+          cp js/README.md gme-js/
           cp license.txt gme-js/LICENSE
 
       - uses: actions/upload-artifact@v2
